@@ -13,6 +13,12 @@ class ProxyService {
         this.cache = new NodeCache({ stdTTL: 300 });
         this.lastRequest = 0;
         
+        this.metrics = {
+            totalRequests: 0,
+            cacheHits: 0,
+            queueSize: 0,
+        };
+        
         ProxyService.instance = this;
         this.processQueue();
     }
@@ -25,10 +31,12 @@ class ProxyService {
     }
 
     async getScore(params = {}) {
+        this.metrics.totalRequests++;
         const command = new ScoreRequestCommand(params);
         
         try {
             this.queue.enqueue(command);
+            this.metrics.queueSize = this.queue.size();
         } catch (error) {
             return { success: false, error: 'Servidor sobrecarregado - tente novamente' };
         }
@@ -42,6 +50,7 @@ class ProxyService {
         setInterval(async () => {
             if (!this.queue.isEmpty()) {
                 const command = this.queue.dequeue();
+                this.metrics.queueSize = this.queue.size();
                 await this.executeCommand(command);
             }
         }, 1000);
@@ -52,6 +61,7 @@ class ProxyService {
         const cached = this.cache.get(cacheKey);
         
         if (cached) {
+            this.metrics.cacheHits++;
             command.onComplete({ success: true, data: cached, cached: true });
             return;
         }
@@ -63,6 +73,13 @@ class ProxyService {
         } catch (error) {
             command.onComplete({ success: false, error: error.message });
         }
+    }
+
+    getMetrics() {
+        return {
+            ...this.metrics,
+            cacheHitRate: this.metrics.totalRequests > 0 ? (this.metrics.cacheHits / this.metrics.totalRequests) : 0,
+        };
     }
 }
 

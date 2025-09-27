@@ -8,7 +8,7 @@ class ScoreRequestCommand extends Command {
     constructor(params = {}) {
         super();
         this.params = params;
-        this.baseUrl = process.env.UPSTREAM_URL + '/score';
+        this.baseUrl = process.env.UPSTREAM_URL + '/api/score';
 
         const queryString = new URLSearchParams(params).toString();
         this.url = queryString ? `${this.baseUrl}?${queryString}` : this.baseUrl;

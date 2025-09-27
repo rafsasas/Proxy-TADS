@@ -5,8 +5,13 @@ class HttpClientSingleton {
         if (HttpClientSingleton.instance) {
             return HttpClientSingleton.instance;
         }
+        console.log(`CLIENT_ID: '${process.env.CLIENT_ID}'`);
+        this.client = axios.create({
+            headers: {
+                'client-id': process.env.CLIENT_ID
+            }
+        });
         
-        this.client = axios.create();
         HttpClientSingleton.instance = this;
     }
 
