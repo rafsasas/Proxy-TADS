@@ -5,8 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
-    "test": "jest"
+    "dev": "nodemon src/server.js"
   },
   "keywords": [
     "proxy",
@@ -22,9 +21,5 @@
     "dotenv": "^16.6.1",
     "express": "^4.21.2",
     "node-cache": "^5.1.2"
-  },
-  "devDependencies": {
-    "jest": "^29.7.0",
-    "nodemon": "^3.0.1"
   }
 }
