@@ -92,10 +92,13 @@ Endpoint principal que atua como proxy. Quaisquer parâmetros de query string s�
 curl "http://localhost:3000/proxy/score?cpf=44087674096"
 ```
 **Exemplo de Resposta (sucesso):**
-```json
-StatusCode        : 200
-StatusDescription : OK
-Content           : {"success":true,"data":{"cpf":"440.876.740-96","score":352,"message":"O score de 440.876.740-96 é 352"}}
+```json{
+  "success": true,
+  "data": {
+    "cpf": "440.876.740-96",
+    "score": 352,
+    "message": "O score de 440.876.740-96 é 352"
+  },
 ```
 **Exemplo de Resposta (cache):**
 ```json
