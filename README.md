@@ -79,35 +79,34 @@ curl http://localhost:3000/metrics
 **Exemplo de Resposta:**
 ```json
 {
-    "totalRequests": 10,
-    "cacheHits": 2,
-    "queueSize": 0,
-    "cacheHitRate": 0.2
+  "totalRequests": 4,
+  "cacheHits": 2,
+  "queueSize": 0,
+  "cacheHitRate": 0.5
 }
 ```
 
 ### `GET /proxy/score`
 Endpoint principal que atua como proxy. Quaisquer parâmetros de query string são repassados à API externa.
 ```bash
-curl http://localhost:3000/proxy/score?document=12345678901
+curl "http://localhost:3000/proxy/score?cpf=44087674096"
 ```
 **Exemplo de Resposta (sucesso):**
 ```json
-{
-    "success": true,
-    "data": {
-        "score": 850
-    }
-}
+StatusCode        : 200
+StatusDescription : OK
+Content           : {"success":true,"data":{"cpf":"440.876.740-96","score":352,"message":"O score de 440.876.740-96 é 352"}}
 ```
 **Exemplo de Resposta (cache):**
 ```json
 {
-    "success": true,
-    "data": {
-        "score": 850
-    },
-    "cached": true
+  "success": true,
+  "data": {
+    "cpf": "440.876.740-96",
+    "score": 352,
+    "message": "O score de 440.876.740-96 é 352"
+  },
+  "cached": true
 }
 ```
 
