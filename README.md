@@ -36,13 +36,13 @@ A solução acomoda picos de requisições, garante uma cadência estável de ch
     Crie um arquivo `.env` na raiz do projeto e adicione as seguintes variáveis:
     ```
     # URL da API externa que será "proxyada"
-    UPSTREAM_URL=[https://score.hsborges.dev](https://score.hsborges.dev)
+    UPSTREAM_URL=https://score.hsborges.dev
     
     # Porta em que o servidor proxy irá rodar
     PORT=3000
     
     # Credencial de acesso para a API externa
-    CLIENT_ID= 12 (exemplo)
+    CLIENT_ID=12 (exemplo)
     ```
 
 4.  **Inicie o Servidor**
